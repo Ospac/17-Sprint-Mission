@@ -25,7 +25,6 @@ export default function AddItem() {
     values.tags.length > 0;
   return (
     <>
-      <Header />
       <Container>
         <Form onSubmit={handleSubmit}>
           <Head>
@@ -44,7 +43,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: space-between;
   gap: ${({ theme }) => theme.spacing['2xl']};
-  padding: ${({ theme }) => `${theme.spacing['2xl']} + ${theme.spacing.xl}`};
+  padding: ${({ theme }) => `${theme.spacing['2xl']} ${theme.spacing.xl}`};
   margin-top: ${({ theme }) => theme.spacing.header};
   @media ${device.TABLET} {
     width: 100%;

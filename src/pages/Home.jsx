@@ -7,12 +7,10 @@ import MainSectionImg3 from '@/assets/imgs/Img_home_03.png';
 import HomeBottomImg from '@/assets/imgs/Img_home_bottom.png';
 import HomeTopImg from '@/assets/imgs/Img_home_top.png';
 import Footer from '@/components/layout/Footer';
-import Header from '@/components/layout/Header';
 
 export default function Home() {
   return (
     <>
-      <Header />
       <Container>
         <section className='section-blue'>
           <div className='section-blue__container'>

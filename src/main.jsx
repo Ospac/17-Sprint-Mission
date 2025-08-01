@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
+import { MainLayout } from '@/components/layout/MainLayout';
 import AddItem from '@/pages/AddItem';
 import Community from '@/pages/Community';
 import Faq from '@/pages/Faq.jsx';
@@ -21,15 +22,17 @@ createRoot(document.getElementById('root')).render(
       <GlobalStyle />
       <BrowserRouter>
         <Routes>
-          <Route path='/' index element={<Home />} />
-          <Route path='items' element={<Items />} />
-          <Route path='additem' element={<AddItem />} />
+          <Route element={<MainLayout />}>
+            <Route path='/' element={<Home />} />
+            <Route path='items' element={<Items />} />
+            <Route path='additem' element={<AddItem />} />
+            <Route path='privacy' element={<Privacy />} />
+            <Route path='community' element={<Community />} />
+            <Route path='faq' element={<Faq />} />
+            <Route path='*' element={<NotFound />} />
+          </Route>
           <Route path='login' element={<Login />} />
           <Route path='signup' element={<Signup />} />
-          <Route path='privacy' element={<Privacy />} />
-          <Route path='community' element={<Community />} />
-          <Route path='faq' element={<Faq />} />
-          <Route path='*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
