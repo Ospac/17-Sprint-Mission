@@ -12,6 +12,7 @@ import Items from '@/pages/Items';
 import Login from '@/pages/Login.jsx';
 import NotFound from '@/pages/NotFound.jsx';
 import Privacy from '@/pages/Privacy.jsx';
+import Product from '@/pages/Product';
 import Signup from '@/pages/Signup.jsx';
 import { GlobalStyle } from '@/styles/global';
 import theme from '@/styles/theme';
@@ -25,6 +26,7 @@ createRoot(document.getElementById('root')).render(
           <Route element={<MainLayout />}>
             <Route path='/' element={<Home />} />
             <Route path='items' element={<Items />} />
+            <Route path='items/:productId' element={<Product />} />
             <Route path='additem' element={<AddItem />} />
             <Route path='privacy' element={<Privacy />} />
             <Route path='community' element={<Community />} />

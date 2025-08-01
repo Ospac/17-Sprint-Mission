@@ -28,7 +28,7 @@ const fontSize = {
 };
 
 const spacing = {
-  header: '60px',
+  header: '72px',
   xs: '5px',
   sm: '10px',
   md: '16px',

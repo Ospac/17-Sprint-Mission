@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { getProducts } from '@/apis/Items';
@@ -53,14 +54,15 @@ export default function BestItemsSection() {
       <Title>베스트 상품</Title>
       <Items>
         {items.map((item) => (
-          <ItemBox
-            key={item.id}
-            title={item.name}
-            price={item.price}
-            like={item.favoriteCount}
-            imgUrl={item.images[0]}
-            imgAlt={item.name}
-          />
+          <Link to={`${item.id}`} key={item.id}>
+            <ItemBox
+              title={item.name}
+              price={item.price}
+              like={item.favoriteCount}
+              imgUrl={item.images[0]}
+              imgAlt={item.name}
+            />
+          </Link>
         ))}
       </Items>
     </Section>

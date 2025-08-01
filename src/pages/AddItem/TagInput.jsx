@@ -43,10 +43,11 @@ export default function TagInput({ values, setValues }) {
         {values.tags.map((tag) => (
           <Tag
             key={`${crypto.randomUUID()}-${tag}`}
-            text={tag}
             canDelete={true}
             onDeleteClick={() => removeTag(tag)}
-          />
+          >
+            {tag}
+          </Tag>
         ))}
       </Tags>
     </Section>

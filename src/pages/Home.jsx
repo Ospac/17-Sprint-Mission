@@ -110,6 +110,4 @@ export default function Home() {
     </>
   );
 }
-const Container = styled.div`
-  margin-top: ${({ theme }) => theme.spacing.header};
-`;
+const Container = styled.div``;

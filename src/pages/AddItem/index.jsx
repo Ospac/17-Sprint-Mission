@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
-import Header from '@/components/layout/Header';
 import Button from '@/components/ui/Button';
 import InputSection from '@/pages/AddItem/InputSection';
 import { device } from '@/styles/media';
@@ -29,7 +28,9 @@ export default function AddItem() {
         <Form onSubmit={handleSubmit}>
           <Head>
             <Title>상품 등록하기</Title>
-            <Button text={'등록'} disabled={!hasEveryInput} />
+            <Button ariaLabel={'상품 등록하기'} disabled={!hasEveryInput}>
+              등록
+            </Button>
           </Head>
           <InputSection values={values} setValues={setValues} />
         </Form>
@@ -44,7 +45,6 @@ const Container = styled.div`
   justify-content: space-between;
   gap: ${({ theme }) => theme.spacing['2xl']};
   padding: ${({ theme }) => `${theme.spacing['2xl']} ${theme.spacing.xl}`};
-  margin-top: ${({ theme }) => theme.spacing.header};
   @media ${device.TABLET} {
     width: 100%;
   }

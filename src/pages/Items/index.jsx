@@ -21,7 +21,6 @@ const Container = styled.div`
   justify-content: space-between;
   gap: ${({ theme }) => theme.spacing['2xl']};
   padding: ${({ theme }) => `${theme.spacing['2xl']} ${theme.spacing.xl}`};
-  margin-top: ${({ theme }) => theme.spacing.header};
   @media ${device.TABLET} {
     width: 100%;
   }

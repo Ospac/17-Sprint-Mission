@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
+import { flexCenter } from '@/styles/util';
+
 const commonStyles = css`
+  ${flexCenter};
   height: auto;
   padding: ${({ theme }) => theme.spacing.sm} ${({ theme }) => theme.spacing.lg};
   background-color: ${({ theme }) => theme.colors.primary};
@@ -25,26 +28,27 @@ const StyledLink = styled(Link)`
   ${commonStyles}
 `;
 export default function Button({
-  text,
   onClick = () => {},
   as = 'button',
   link = '',
   disabled = false,
+  ariaLabel = '',
+  children,
 }) {
   switch (as) {
     case 'button':
       return (
         <StyledButton onClick={onClick} disabled={disabled}>
-          {text}
+          {children}
         </StyledButton>
       );
     case 'a':
       return (
-        <StyledLink to={link} aria-label={text}>
-          {text}
+        <StyledLink to={link} aria-label={ariaLabel}>
+          {children}
         </StyledLink>
       );
     case 'div':
-      return <StyledDiv onClick={onClick}>{text}</StyledDiv>;
+      return <StyledDiv onClick={onClick}>{ariaLabel}</StyledDiv>;
   }
 }

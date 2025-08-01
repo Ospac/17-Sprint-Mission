@@ -6,7 +6,11 @@ export function MainLayout() {
   return (
     <>
       <Header />
+      <Space />
       <Outlet />
     </>
   );
 }
+const Space = styled.div`
+  margin-top: ${({ theme }) => theme.spacing.header};
+`;

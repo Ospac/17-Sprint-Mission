@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import DeleteIcon from '@/assets/icons/ic_X.svg';
 
 export default function Tag({
-  text = '',
   canDelete = false,
   onDeleteClick = () => {},
+  children,
 }) {
   return (
     <Container>
-      <span>#{text}</span>
+      <span>#{children}</span>
       {canDelete && (
         <Button onClick={onDeleteClick}>
           <DeleteIcon />

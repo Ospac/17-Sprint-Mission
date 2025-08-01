@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { getProducts } from '@/apis/Items';
@@ -60,7 +61,7 @@ export default function AllItemsSection() {
         <Control>
           <Title>전체 상품</Title>
           {isMobile ? (
-            <Button text='상품 등록하기' as='a' link='/additem' />
+            <ButtonToAddItemPage />
           ) : (
             <Search onSubmit={setSearchInput} />
           )}
@@ -69,27 +70,33 @@ export default function AllItemsSection() {
           {isMobile ? (
             <Search onSubmit={setSearchInput} />
           ) : (
-            <Button text='상품 등록하기' as='a' link='/additem' />
+            <ButtonToAddItemPage />
           )}
           <DropdownButton orderBy={orderBy} setOrderBy={setOrderBy} />
         </Control>
       </Head>
       <Items>
         {items.map((item) => (
-          <ItemBox
-            key={item.id}
-            title={item.name}
-            price={item.price}
-            like={item.favoriteCount}
-            imgUrl={item.images[0] || undefined}
-            imgAlt={item.name}
-          />
+          <Link to={`${item.id}`} key={item.id}>
+            <ItemBox
+              title={item.name}
+              price={item.price}
+              like={item.favoriteCount}
+              imgUrl={item.images[0] || undefined}
+              imgAlt={item.name}
+            />
+          </Link>
         ))}
       </Items>
       <Pagination totalCount={totalCount} page={page} setPage={setPage} />
     </Section>
   );
 }
+const ButtonToAddItemPage = () => (
+  <Button as='a' link='/additem' ariaLabel='상품 등록 페이지로 이동'>
+    상품 등록하기
+  </Button>
+);
 const Section = styled.section`
   display: flex;
   flex-direction: column;
