@@ -7,7 +7,7 @@ import useAsync from '@/hooks/useAsync';
 import useDebouncedResizeEffect from '@/hooks/useDebouncedResizeEffect';
 import { ORDER_BY } from '@/pages/Items/constants';
 import ItemBox from '@/pages/Items/ItemBox';
-import { getItemLimitByscreenSize } from '@/pages/Items/utils';
+import { getBestItemsLimitByScreenSize } from '@/pages/Items/utils';
 import { device } from '@/styles/media';
 
 const _BEST_ITEMS_DEFAULT_VALUES = {
@@ -16,16 +16,9 @@ const _BEST_ITEMS_DEFAULT_VALUES = {
   orderBy: ORDER_BY.FAVORITE,
   keyword: '',
 };
-
 export default function BestItemsSection() {
   const [items, setItems] = useState([]);
-  const [pageSize, setPageSize] = useState(
-    getItemLimitByscreenSize({
-      mobile: 1,
-      tablet: 2,
-      desktop: 4,
-    })
-  );
+  const [pageSize, setPageSize] = useState(getBestItemsLimitByScreenSize());
   const [isLoading, loadingError, getProductsAsync] = useAsync(getProducts);
   const handleLoad = useCallback(
     async (options) => {
@@ -40,13 +33,7 @@ export default function BestItemsSection() {
   }, [handleLoad, pageSize]);
 
   useDebouncedResizeEffect(() => {
-    setPageSize(
-      getItemLimitByscreenSize({
-        mobile: 1,
-        tablet: 2,
-        desktop: 4,
-      })
-    );
+    setPageSize(getBestItemsLimitByScreenSize());
   });
 
   return (

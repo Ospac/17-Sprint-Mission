@@ -12,7 +12,7 @@ import DropdownButton from '@/pages/Items/DropdownButton';
 import ItemBox from '@/pages/Items/ItemBox';
 import Pagination from '@/pages/Items/Pagination';
 import Search from '@/pages/Items/Search';
-import { getItemLimitByscreenSize } from '@/pages/Items/utils';
+import { getAllItemsLimitByScreenSize } from '@/pages/Items/utils';
 import { device } from '@/styles/media';
 
 export default function AllItemsSection() {
@@ -21,13 +21,7 @@ export default function AllItemsSection() {
   const [orderBy, setOrderBy] = useState(ORDER_BY.RECENT);
   const [searchInput, setSearchInput] = useState('');
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(
-    getItemLimitByscreenSize({
-      mobile: 4,
-      tablet: 6,
-      desktop: 10,
-    })
-  );
+  const [pageSize, setPageSize] = useState(getAllItemsLimitByScreenSize());
   const [isLoading, loadingError, getProductsAsync] = useAsync(getProducts);
   const isMobile = useIsMobile();
 
@@ -46,13 +40,7 @@ export default function AllItemsSection() {
   }, [handleLoad, orderBy, page, pageSize, searchInput]);
 
   useDebouncedResizeEffect(() => {
-    setPageSize(
-      getItemLimitByscreenSize({
-        mobile: 4,
-        tablet: 6,
-        desktop: 10,
-      })
-    );
+    setPageSize(getAllItemsLimitByScreenSize());
   });
 
   return (
