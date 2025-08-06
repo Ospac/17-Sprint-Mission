@@ -6,7 +6,7 @@ import ClearIcon from '@/assets/icons/ic_X.svg';
 import ItemImg from '@/components/ui/ItemImg';
 import { device } from '@/styles/media';
 
-export default function ImageFileInput({ imgFile, onChange }) {
+export default function FileSection({ imgFile, onChange }) {
   const inputRef = useRef(null);
   const [preview, setPreview] = useState(null);
   const [error, setError] = useState(false);
@@ -29,7 +29,7 @@ export default function ImageFileInput({ imgFile, onChange }) {
     const inputNode = inputRef.current;
     if (!inputNode) return;
     inputNode.value = '';
-    onChange('imgFile', null);
+    onChange(inputNode.name, null);
     setError(false);
   };
   useEffect(() => {
@@ -44,7 +44,7 @@ export default function ImageFileInput({ imgFile, onChange }) {
 
   return (
     <>
-      <FileSection>
+      <Container>
         <FileInputWrapper onClick={handleClick}>
           <PlusIcon />
           <Label htmlFor='imgFile'>이미지 등록</Label>
@@ -66,7 +66,7 @@ export default function ImageFileInput({ imgFile, onChange }) {
             </ClearButton>
           </PreviewWrapper>
         )}
-      </FileSection>
+      </Container>
       {error && (
         <ErrorMessage>*이미지 등록은 최대 1개까지 가능합니다.</ErrorMessage>
       )}
@@ -117,7 +117,7 @@ const ClearButton = styled.button`
   top: 10px;
   cursor: pointer;
 `;
-const FileSection = styled.div`
+const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: ${({ theme }) => theme.spacing.sm};

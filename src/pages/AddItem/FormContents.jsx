@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-import ImageFileInput from '@/pages/AddItem/ImageFileInput';
+import FileSection from '@/pages/AddItem/FileSection';
 import TagInput from '@/pages/AddItem/TagInput';
-import getNumberOnly from '@/utils/getNumberOnly';
+import { getNumberOnly } from '@/pages/AddItem/util';
 
-export default function InputSection({ values, setValues }) {
+export default function FormContents({ values, setValues }) {
   const setValuesWithParemeter = (name, value) => {
     setValues((prev) => ({
       ...prev,
@@ -26,7 +26,7 @@ export default function InputSection({ values, setValues }) {
     <>
       <Section>
         <Label>상품 이미지</Label>
-        <ImageFileInput
+        <FileSection
           imgFile={values.imgFile}
           onChange={setValuesWithParemeter}
         />

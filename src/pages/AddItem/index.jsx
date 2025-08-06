@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 
 import Button from '@/components/ui/Button';
-import InputSection from '@/pages/AddItem/InputSection';
+import FormContents from '@/pages/AddItem/FormContents';
 import { device } from '@/styles/media';
 
 const INITIAL_VALUES = {
@@ -32,7 +32,7 @@ export default function AddItem() {
               등록
             </Button>
           </Head>
-          <InputSection values={values} setValues={setValues} />
+          <FormContents values={values} setValues={setValues} />
         </Form>
       </Container>
     </>
