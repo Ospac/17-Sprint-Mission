@@ -1,10 +1,11 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { getProducts } from '@/apis/Items';
-import useAsync from '@/hooks/useAsync';
+import Loading from '@/components/ui/Loading';
 import useDebouncedResizeEffect from '@/hooks/useDebouncedResizeEffect';
+import { useQuery } from '@/hooks/useFetch';
 import { ORDER_BY } from '@/pages/Items/constants';
 import ItemBox from '@/pages/Items/ItemBox';
 import { getBestItemsLimitByScreenSize } from '@/pages/Items/utils';
@@ -17,30 +18,26 @@ const _BEST_ITEMS_DEFAULT_VALUES = {
   keyword: '',
 };
 export default function BestItemsSection() {
-  const [items, setItems] = useState([]);
   const [pageSize, setPageSize] = useState(getBestItemsLimitByScreenSize());
-  const [isLoading, loadingError, getProductsAsync] = useAsync(getProducts);
-  const handleLoad = useCallback(
-    async (options) => {
-      const result = await getProductsAsync(options);
-      if (!result) return; //error
-      setItems(result?.list);
-    },
-    [getProductsAsync]
-  );
-  useEffect(() => {
-    handleLoad({ ..._BEST_ITEMS_DEFAULT_VALUES, pageSize });
-  }, [handleLoad, pageSize]);
-
+  const {
+    loading,
+    error,
+    data: items,
+  } = useQuery({
+    queryFn: () => getProducts({ ..._BEST_ITEMS_DEFAULT_VALUES, pageSize }),
+    deps: [pageSize],
+  });
   useDebouncedResizeEffect(() => {
     setPageSize(getBestItemsLimitByScreenSize());
   });
 
+  if (error) return <div>error</div>;
+  if (!items || loading) return <Loading />;
   return (
     <Section>
       <Title>베스트 상품</Title>
       <Items>
-        {items.map((item) => (
+        {items?.list.map((item) => (
           <Link to={`${item.id}`} key={item.id}>
             <ItemBox
               title={item.name}

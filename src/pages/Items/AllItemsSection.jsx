@@ -1,11 +1,12 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { getProducts } from '@/apis/Items';
 import Button from '@/components/ui/Button';
-import useAsync from '@/hooks/useAsync';
+import Loading from '@/components/ui/Loading';
 import useDebouncedResizeEffect from '@/hooks/useDebouncedResizeEffect';
+import { useQuery } from '@/hooks/useFetch';
 import useIsMobile from '@/hooks/useIsMobile';
 import { ORDER_BY } from '@/pages/Items/constants';
 import DropdownButton from '@/pages/Items/DropdownButton';
@@ -16,33 +17,34 @@ import { getAllItemsLimitByScreenSize } from '@/pages/Items/utils';
 import { device } from '@/styles/media';
 
 export default function AllItemsSection() {
-  const [items, setItems] = useState([]);
   const [totalCount, setTotalCount] = useState(1);
   const [orderBy, setOrderBy] = useState(ORDER_BY.RECENT);
   const [searchInput, setSearchInput] = useState('');
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(getAllItemsLimitByScreenSize());
-  const [isLoading, loadingError, getProductsAsync] = useAsync(getProducts);
+  const {
+    loading,
+    error,
+    data: items,
+  } = useQuery({
+    queryFn: () =>
+      getProducts({ orderBy, page, pageSize, keyword: searchInput }),
+    deps: [orderBy, page, pageSize, searchInput],
+  });
+
   const isMobile = useIsMobile();
 
-  const handleLoad = useCallback(
-    async (options) => {
-      const result = await getProductsAsync(options);
-      if (!result) return; //error
-      setItems(result?.list);
-      setTotalCount(result?.totalCount);
-    },
-    [getProductsAsync]
-  );
-
   useEffect(() => {
-    handleLoad({ orderBy, page, pageSize, keyword: searchInput });
-  }, [handleLoad, orderBy, page, pageSize, searchInput]);
+    setTotalCount(items?.totalCount);
+  }, [items]);
+  console.log(items, loading);
 
   useDebouncedResizeEffect(() => {
     setPageSize(getAllItemsLimitByScreenSize());
   });
 
+  if (error) return <div>error</div>;
+  if (!items || loading) return <Loading />;
   return (
     <Section>
       <Head>
@@ -64,7 +66,7 @@ export default function AllItemsSection() {
         </Control>
       </Head>
       <Items>
-        {items.map((item) => (
+        {items?.list.map((item) => (
           <Link to={`${item.id}`} key={item.id}>
             <ItemBox
               title={item.name}
