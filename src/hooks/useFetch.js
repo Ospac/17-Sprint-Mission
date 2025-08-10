@@ -18,7 +18,7 @@ export default function useFetch({
     } catch (error) {
       setState({ data: null, loading: false, error });
     }
-  }, deps);
+  }, [...deps]);
 
   useEffect(() => {
     if (immediate) refetch();

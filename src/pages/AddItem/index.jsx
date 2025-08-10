@@ -1,21 +1,18 @@
-import { useState } from 'react';
+import { useReducer } from 'react';
 import styled from 'styled-components';
 
 import Button from '@/components/ui/Button';
 import FormContents from '@/pages/AddItem/FormContents';
+import formReducer, {
+  FORM_INITIAL_VALUES,
+} from '@/pages/AddItem/lib/formReducer';
 import { device } from '@/styles/media';
 
-const INITIAL_VALUES = {
-  imgFile: null,
-  title: '',
-  description: '',
-  price: 0,
-  tags: [],
-};
 export default function AddItem() {
-  const [values, setValues] = useState(INITIAL_VALUES);
+  const [values, dispatch] = useReducer(formReducer, FORM_INITIAL_VALUES);
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(values);
   };
   const hasEveryInput =
     values.title &&
@@ -32,7 +29,7 @@ export default function AddItem() {
               등록
             </Button>
           </Head>
-          <FormContents values={values} setValues={setValues} />
+          <FormContents values={values} dispatch={dispatch} />
         </Form>
       </Container>
     </>

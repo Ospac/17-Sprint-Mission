@@ -1,23 +1,21 @@
 import styled from 'styled-components';
 
 import Tag from '@/components/ui/Tag';
+import { formReducerType } from '@/pages/AddItem/lib/formReducer';
 
-export default function TagInput({ values, setValues }) {
+export default function TagInput({ values, dispatch }) {
   const addTag = (tagToAdd) => {
     const hasSameTag = values.tags.includes(tagToAdd);
     if (hasSameTag) return;
-    setValues((prev) => ({
-      ...prev,
-      tags: [...prev.tags, tagToAdd],
-    }));
+    dispatch({
+      type: formReducerType.ADD_TAG,
+      tagToAdd,
+    });
   };
   const removeTag = (tagToRemove) => {
-    setValues((prev) => {
-      const newTags = prev.tags.filter((tag) => tag !== tagToRemove);
-      return {
-        ...prev,
-        tags: newTags,
-      };
+    dispatch({
+      type: formReducerType.REMOVE_TAG,
+      tagToRemove,
     });
   };
   const handleTagEnter = (e) => {

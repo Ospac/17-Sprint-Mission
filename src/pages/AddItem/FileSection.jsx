@@ -4,14 +4,15 @@ import styled from 'styled-components';
 import PlusIconSvg from '@/assets/icons/ic_plus.svg';
 import ClearIcon from '@/assets/icons/ic_X.svg';
 import ItemImg from '@/components/ui/ItemImg';
+import { formReducerType } from '@/pages/AddItem/lib/formReducer';
 import { device } from '@/styles/media';
 
-export default function FileSection({ imgFile, onChange }) {
+export default function FileSection({ imgFile, dispatch }) {
   const inputRef = useRef(null);
   const [preview, setPreview] = useState(null);
   const [error, setError] = useState(false);
 
-  const handleClick = () => {
+  const handleFileSelectorPopUp = () => {
     if (imgFile) {
       setError(true);
       return;
@@ -19,19 +20,29 @@ export default function FileSection({ imgFile, onChange }) {
     if (!inputRef.current) return;
     inputRef.current.click();
   };
+  const dispatchFile = (name, value) => {
+    dispatch({
+      type: formReducerType.EDIT_FORM_VALUE,
+      name,
+      value,
+    });
+  };
   const handleChange = (e) => {
     const file = e.target.files?.[0];
     if (file) {
-      onChange(e.target.name, file);
+      dispatchFile(e.target.name, file);
     }
   };
   const handleClearClick = () => {
     const inputNode = inputRef.current;
+    const imgFile = inputNode.name;
+
     if (!inputNode) return;
     inputNode.value = '';
-    onChange(inputNode.name, null);
+    dispatchFile(imgFile, null);
     setError(false);
   };
+
   useEffect(() => {
     if (!imgFile) return;
     const objectURL = URL.createObjectURL(imgFile);
@@ -45,7 +56,7 @@ export default function FileSection({ imgFile, onChange }) {
   return (
     <>
       <Container>
-        <FileInputWrapper onClick={handleClick}>
+        <FileInputWrapper onClick={handleFileSelectorPopUp}>
           <PlusIcon />
           <Label htmlFor='imgFile'>이미지 등록</Label>
           <Input

@@ -1,24 +1,27 @@
 import styled from 'styled-components';
 
 import FileSection from '@/pages/AddItem/FileSection';
+import { formReducerType } from '@/pages/AddItem/lib/formReducer';
+import { getNumberOnly } from '@/pages/AddItem/lib/util';
 import TagInput from '@/pages/AddItem/TagInput';
-import { getNumberOnly } from '@/pages/AddItem/util';
 
-export default function FormContents({ values, setValues }) {
-  const setValuesWithParemeter = (name, value) => {
-    setValues((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+export default function FormContents({ values, dispatch }) {
   const handleTextChange = (e) => {
     let { name, value } = e.target;
-    setValuesWithParemeter(name, value);
+    dispatch({
+      type: formReducerType.EDIT_FORM_VALUE,
+      name,
+      value,
+    });
   };
   const handlePriceChange = (e) => {
     let { name, value } = e.target;
     const cleanedValue = Number(getNumberOnly(value));
-    setValuesWithParemeter(name, cleanedValue);
+    dispatch({
+      type: formReducerType.EDIT_FORM_VALUE,
+      name,
+      value: cleanedValue,
+    });
   };
   const priceValue =
     values.price === 0 ? '' : values.price.toLocaleString('ko-KR');
@@ -26,10 +29,7 @@ export default function FormContents({ values, setValues }) {
     <>
       <Section>
         <Label>상품 이미지</Label>
-        <FileSection
-          imgFile={values.imgFile}
-          onChange={setValuesWithParemeter}
-        />
+        <FileSection imgFile={values.imgFile} dispatch={dispatch} />
       </Section>
       <Section>
         <Label htmlFor='상품명'>상품명</Label>
@@ -67,10 +67,11 @@ export default function FormContents({ values, setValues }) {
           required
         />
       </Section>
-      <TagInput values={values} setValues={setValues} />
+      <TagInput values={values} dispatch={dispatch} />
     </>
   );
 }
+
 const Label = styled.label`
   font-size: ${({ theme }) => theme.fontSize.lg};
   font-weight: 700;
