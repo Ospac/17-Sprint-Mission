@@ -3,7 +3,10 @@
   flex-direction: column;
   justify-content: space-between;
   gap: var(--spacing-2xl);
-  padding: var(--spacing-2xl) var(--spacing-xl);
+  padding: var(--spacing-md) var(--spacing-md);
+  @include desktop {
+    padding: var(--spacing-2xl) var(--spacing-xl);
+  }
 
   @include tablet {
     width: 100%;

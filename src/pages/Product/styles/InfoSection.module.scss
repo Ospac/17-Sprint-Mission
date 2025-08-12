@@ -22,12 +22,18 @@
   .contentsContainer {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-3xl);
+    gap: rem(40px);
+    @include tablet {
+      gap: var(--spacing-3xl);
+    }
   }
   .texts {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-lg);
+    gap: var(--spacing-md);
+    @include desktop {
+      gap: var(--spacing-lg);
+    }
     .titles {
       position: relative;
       display: flex;
@@ -36,12 +42,24 @@
       padding-bottom: var(--spacing-md);
       border-bottom: 1px solid var(--color-gray-200);
       .title {
-        font-size: var(--font-size-xl);
+        font-size: var(--font-size-md);
         font-weight: 600;
+        @include tablet {
+          font-size: var(--font-size-xl);
+        }
+        @include desktop {
+          font-size: var(--font-size-2xl);
+        }
       }
       .price {
-        font-size: 2rem;
+        font-size: var(--font-size-2xl);
         font-weight: 600;
+        @include tablet {
+          font-size: var(--font-size-3xl);
+        }
+        @include desktop {
+          font-size: rem(40px);
+        }
       }
       svg {
         position: absolute;
@@ -55,9 +73,14 @@
       gap: var(--spacing-lg);
       .infoLabel {
         font-weight: 600;
+        font-size: var(--font-size-sm);
+        @include desktop {
+          font-size: var(--font-size-md);
+        }
       }
       .description {
         color: var(--color-gray-800);
+        font-weight: 500;
       }
       .tags {
         display: flex;
@@ -71,34 +94,26 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    .authorContainer {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-md);
-
-      .profileImage {
-        background-color: var(--color-gray-300);
-        border-radius: var(--radius-circle);
-      }
-      .authorInfo {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        font-size: var(--font-size-sm);
-
-        .nickname {
-          color: var(--color-gray-400);
-        }
-        .updateAt {
-          color: var(--color-gray-600);
-        }
-      }
-
+    .likeButtonWrapper {
+      padding-left: 1.5rem;
+      border-left: 1px solid var(--color-gray-200);
       .likeButton {
+        @include flex-center;
+        gap: var(--spacing-xs);
+        background-color: var(--color-white);
+        border: 1px solid var(--color-gray-200);
+        border-radius: rem(35px);
+        padding: rem(4px) rem(12px);
+        font-weight: 500;
         svg {
+          path {
+            stroke: var(--color-gray-500);
+          }
+          width: 1.5rem;
+          height: 1.5rem;
         }
         .count {
+          color: var(--color-gray-500);
         }
       }
     }

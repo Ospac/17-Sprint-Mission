@@ -1,8 +1,10 @@
 import LikeIcon from '@/assets/icons/ic_heart.svg';
 import KebabIcon from '@/assets/icons/ic_kebab.svg';
-import defaultProfileImg from '@/assets/imgs/default_profile.png';
 import ItemImg from '@/components/ui/ItemImg';
 import Tag from '@/components/ui/Tag';
+import AuthorInfo, {
+  AUTHOR_INFO_VARIANTS,
+} from '@/pages/Product/components/AuthorInfo';
 import styles from '@/pages/Product/styles/InfoSection.module.scss';
 
 export default function InfoSection() {
@@ -11,12 +13,14 @@ export default function InfoSection() {
       <div className={styles.imgWrapper}>
         <ItemImg imgUrl='https://avatars.githubusercontent.com/u/31947480?v=4' />
       </div>
-      <div className={styles.contentContainer}>
+      <div className={styles.contentsContainer}>
         <div className={styles.texts}>
           <hgroup className={styles.titles}>
             <h1 className={styles.title}>아이패드 미니 팔아요</h1>
             <h2 className={styles.price}>500,000원</h2>
-            <KebabIcon />
+            <button>
+              <KebabIcon />
+            </button>
           </hgroup>
           <div className={styles.infoContainer}>
             <h3 className={styles.infoLabel}>상품 소개</h3>
@@ -35,21 +39,17 @@ export default function InfoSection() {
           </div>
         </div>
         <div className={styles.sectionFooter}>
-          <div className={styles.authorContainer}>
-            <img
-              className={styles.profileImage}
-              src={defaultProfileImg}
-              alt='회색 기본 프로필 이미지'
-            />
-            <div className={styles.authorInfo}>
-              <span className={styles.nickname}>총명한 판다</span>
-              <span className={styles.updateAt}>2024. 01. 02</span>
-            </div>
+          <AuthorInfo
+            variant={AUTHOR_INFO_VARIANTS.product}
+            nickname={'총명한 판다'}
+            updateAt={'2024. 01. 02'}
+          />
+          <div className={styles.likeButtonWrapper}>
+            <button className={styles.likeButton}>
+              <LikeIcon />
+              <span className={styles.count}>123</span>
+            </button>
           </div>
-          <button className={styles.likeButton}>
-            <LikeIcon />
-            <span className={styles.count}>123</span>
-          </button>
         </div>
       </div>
     </section>

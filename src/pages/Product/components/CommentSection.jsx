@@ -1,5 +1,7 @@
 import ThreeDotIcon from '@/assets/icons/ic_kebab.svg';
-import AuthorInfo from '@/pages/Product/components/AuthorInfo';
+import AuthorInfo, {
+  AUTHOR_INFO_VARIANTS,
+} from '@/pages/Product/components/AuthorInfo';
 import CommentForm from '@/pages/Product/components/CommentForm';
 import styles from '@/pages/Product/styles/CommentSection.module.scss';
 
@@ -20,7 +22,11 @@ export default function CommentSection() {
                   <ThreeDotIcon />
                 </button>
               </div>
-              <AuthorInfo />
+              <AuthorInfo
+                variant={AUTHOR_INFO_VARIANTS.comment}
+                nickname={'총명한 판다'}
+                updateAt={'2024. 01. 02'}
+              />
             </>
           ))}
       </section>
