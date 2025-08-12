@@ -1,16 +1,14 @@
 import Header from '@/components/layout/Header';
 import { Outlet } from 'react-router-dom';
-import styled from 'styled-components';
+import styles from '@/components/layout/styles/MainLayout.module.scss';
 
 export function MainLayout() {
   return (
     <>
       <Header />
-      <Space />
-      <Outlet />
+      <div className={styles.layoutContainer}>
+        <Outlet />
+      </div>
     </>
   );
 }
-const Space = styled.div`
-  margin-top: ${({ theme }) => theme.spacing.header};
-`;
