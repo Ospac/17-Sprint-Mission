@@ -3,6 +3,7 @@ import AuthorInfo, {
   AUTHOR_INFO_VARIANTS,
 } from '@/pages/Product/components/AuthorInfo';
 import CommentForm from '@/pages/Product/components/CommentForm';
+import DropdownMenu from '@/pages/Product/components/DropdownMenu';
 import styles from '@/pages/Product/styles/CommentSection.module.scss';
 
 export default function CommentSection() {
@@ -14,19 +15,19 @@ export default function CommentSection() {
           .fill()
           .map(() => (
             <>
-              <div className={styles.commentWrapper}>
-                <div className={styles.comment}>
-                  혹시 사용기간이 어떻게 되실까요?
+              <div className={styles.commentContainer}>
+                <div className={styles.commentWrapper}>
+                  <div className={styles.comment}>
+                    혹시 사용기간이 어떻게 되실까요?
+                  </div>
+                  <DropdownMenu menuNameArray={['수정하기', '삭제하기']} />
                 </div>
-                <button className={styles.menuButton}>
-                  <ThreeDotIcon />
-                </button>
+                <AuthorInfo
+                  variant={AUTHOR_INFO_VARIANTS.comment}
+                  nickname={'총명한 판다'}
+                  updateAt={'2024. 01. 02'}
+                />
               </div>
-              <AuthorInfo
-                variant={AUTHOR_INFO_VARIANTS.comment}
-                nickname={'총명한 판다'}
-                updateAt={'2024. 01. 02'}
-              />
             </>
           ))}
       </section>

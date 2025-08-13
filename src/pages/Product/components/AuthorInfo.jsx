@@ -24,7 +24,7 @@ export default function AuthorInfo({
         })}
         src={defaultProfileImg}
         alt='기본 프로필 이미지'
-      ></img>
+      />
       <div
         className={cn('authorWrapper', {
           authorWrapperComment: variant === AUTHOR_INFO_VARIANTS.comment,

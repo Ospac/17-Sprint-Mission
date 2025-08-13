@@ -9,10 +9,12 @@ export default function Product() {
     <main className={styles.container}>
       <InfoSection />
       <CommentSection />
-      <Button as='a' ariaLabel='상품 목록으로 돌아가기'>
-        목록으로 돌아가기
-        <BackIcon />
-      </Button>
+      <div className={styles.buttonWrapper}>
+        <Button as='a' link={'/items'} ariaLabel='상품 목록으로 돌아가기'>
+          목록으로 돌아가기
+          <BackIcon />
+        </Button>
+      </div>
     </main>
   );
 }

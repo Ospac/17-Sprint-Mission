@@ -1,8 +1,22 @@
 .section {
-}
-.commentWrapper {
-  .comment {
-  }
-  .menuButton {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: var(--spacing-lg);
+  .commentContainer {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: rem(12px);
+    border-bottom: 1px solid var(--color-gray-300);
+    gap: var(--spacing-lg);
+    .commentWrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .comment {
+        font-size: var(--font-size-sm);
+        font-weight: 500;
+      }
+    }
   }
 }
