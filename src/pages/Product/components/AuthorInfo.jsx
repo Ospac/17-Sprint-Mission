@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import defaultProfileImg from '@/assets/imgs/default_profile.png';
 import styles from '@/pages/Product/styles/AuthorInfo.module.scss';
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const AUTHOR_INFO_VARIANTS = {
   product: 'product',
   community: 'community',

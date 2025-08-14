@@ -18,6 +18,7 @@ export default function useFetch({
     } catch (error) {
       setState({ data: null, loading: false, error });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [...deps]);
 
   useEffect(() => {
