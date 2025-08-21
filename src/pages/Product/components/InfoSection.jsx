@@ -51,7 +51,7 @@ export default function InfoSection() {
           <AuthorInfo
             variant={AUTHOR_INFO_VARIANTS.product}
             nickname={data.ownerNickname}
-            updateAt={formattedDate}
+            updatedAt={formattedDate}
           />
           <div className={styles.likeButtonWrapper}>
             <button className={styles.likeButton}>

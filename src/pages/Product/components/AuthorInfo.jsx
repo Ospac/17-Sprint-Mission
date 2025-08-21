@@ -12,7 +12,7 @@ export const AUTHOR_INFO_VARIANTS = {
 export default function AuthorInfo({
   variant = AUTHOR_INFO_VARIANTS.product,
   nickname,
-  updateAt,
+  updatedAt,
 }) {
   const cn = classNames.bind(styles);
   return (
@@ -33,7 +33,7 @@ export default function AuthorInfo({
         })}
       >
         <span className={styles.nickname}>{nickname}</span>
-        <span className={styles.updateAt}>{updateAt}</span>
+        <span className={styles.updatedAt}>{updatedAt}</span>
       </div>
     </div>
   );

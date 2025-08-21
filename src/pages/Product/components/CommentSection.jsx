@@ -40,7 +40,7 @@ export default function CommentSection() {
               <AuthorInfo
                 variant={AUTHOR_INFO_VARIANTS.comment}
                 nickname={comment.writer?.nickname}
-                updateAt={getTimeDifferenceString(comment.updatedAt)}
+                updatedAt={getTimeDifferenceString(comment.updatedAt)}
               />
             </div>
           </Fragment>
