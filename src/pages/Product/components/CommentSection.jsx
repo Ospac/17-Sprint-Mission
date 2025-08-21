@@ -11,7 +11,7 @@ import CommentForm from '@/pages/Product/components/CommentForm';
 import DropdownMenu from '@/pages/Product/components/DropdownMenu';
 import { getComments } from '@/pages/Product/lib/api';
 import styles from '@/pages/Product/styles/CommentSection.module.scss';
-import { getTimeDiffrenceString } from '@/utils/Date';
+import { getTimeDifferenceString } from '@/utils/Date';
 
 export default function CommentSection() {
   const { productId } = useParams();
@@ -40,7 +40,7 @@ export default function CommentSection() {
               <AuthorInfo
                 variant={AUTHOR_INFO_VARIANTS.comment}
                 nickname={comment.writer?.nickname}
-                updateAt={getTimeDiffrenceString(comment.updatedAt)}
+                updateAt={getTimeDifferenceString(comment.updatedAt)}
               />
             </div>
           </Fragment>

@@ -9,7 +9,7 @@ export function getFormattedDate(date) {
   const formattedDate = krDate.slice(0, krDate.lastIndexOf('.'));
   return formattedDate;
 }
-export const getTimeDiffrenceString = (date) => {
+export const getTimeDifferenceString = (date) => {
   const today = new Date();
   const dateValue = new Date(date);
   if (!isValidDate(dateValue)) return '';

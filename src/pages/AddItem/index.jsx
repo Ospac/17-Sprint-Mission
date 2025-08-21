@@ -11,7 +11,6 @@ export default function AddItem() {
   const [values, dispatch] = useReducer(formReducer, FORM_INITIAL_VALUES);
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(values);
   };
   const hasEveryInput =
     values.title &&
