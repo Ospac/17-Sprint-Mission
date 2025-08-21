@@ -16,7 +16,7 @@ import { getAllItemsLimitByScreenSize } from '@/pages/Items/lib/utils';
 import styles from '@/pages/Items/styles/AllItemsSection.module.scss';
 
 export default function AllItemsSection() {
-  const [totalCount, setTotalCount] = useState(1);
+  const [itemsTotalCount, setItemsTotalCount] = useState(1);
   const [orderBy, setOrderBy] = useState(ORDER_BY.RECENT);
   const [searchInput, setSearchInput] = useState('');
   const [page, setPage] = useState(1);
@@ -34,7 +34,7 @@ export default function AllItemsSection() {
   const isMobile = useIsMobile();
 
   useEffect(() => {
-    setTotalCount(items?.totalCount);
+    setItemsTotalCount(items?.totalCount);
   }, [items]);
 
   useDebouncedResizeEffect(() => {
@@ -76,7 +76,12 @@ export default function AllItemsSection() {
           </Link>
         ))}
       </ul>
-      <Pagination totalCount={totalCount} page={page} setPage={setPage} />
+      <Pagination
+        itemsTotalCount={itemsTotalCount}
+        page={page}
+        pageSize={pageSize}
+        setPage={setPage}
+      />
     </section>
   );
 }

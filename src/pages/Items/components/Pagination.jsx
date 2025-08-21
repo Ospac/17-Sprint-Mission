@@ -4,17 +4,25 @@ import LeftArrowIcon from '@/assets/icons/ic_arrow_left.svg';
 import RightArrowIcon from '@/assets/icons/ic_arrow_right.svg';
 import styles from '@/pages/Items/styles/Pagination.module.scss';
 
-export default function Pagination({ totalCount = 1, page, setPage }) {
+export default function Pagination({
+  itemsTotalCount = 1,
+  page,
+  setPage,
+  pageSize,
+}) {
   const cn = classNames.bind(styles);
+  const pageLength = 5;
   const isFirstPage = page === 1;
-  const pagesCount = Math.ceil(totalCount / 10);
-  const pageGroup = Math.ceil(page / 5);
-  const firstPage = (pageGroup - 1) * 5 + 1;
-  const lastPage = pageGroup * 5;
-  const countArray = Array.from({ length: pagesCount }, (v, i) => i + 1).slice(
-    firstPage - 1,
-    lastPage
-  );
+  const pagesTotalCount = Math.ceil(itemsTotalCount / pageSize);
+  const pageGroup = Math.ceil(page / pageLength);
+  const firstPage = (pageGroup - 1) * pageLength + 1;
+  const lastPage = pageGroup * pageLength;
+
+  const countArray = Array.from(
+    { length: pagesTotalCount },
+    (v, i) => i + 1
+  ).slice(firstPage - 1, lastPage);
+
   const handleClick = (e) => {
     setPage(Number(e.target.value));
   };
@@ -27,7 +35,7 @@ export default function Pagination({ totalCount = 1, page, setPage }) {
   const handleRightArrowClick = () => {
     setPage((prev) => {
       const next = prev + 1;
-      return pagesCount >= next ? next : pagesCount;
+      return pagesTotalCount >= next ? next : pagesTotalCount;
     });
   };
   return (
@@ -60,7 +68,7 @@ export default function Pagination({ totalCount = 1, page, setPage }) {
       <button
         className={cn('counter')}
         onClick={handleRightArrowClick}
-        disabled={page === pagesCount}
+        disabled={page === pagesTotalCount}
       >
         <div className={cn('iconWrapper')}>
           <RightArrowIcon aria-label='다음 페이지 보기 버튼' />
