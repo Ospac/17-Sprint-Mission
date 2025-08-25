@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function useFetch({
   asyncFunction,
@@ -10,42 +10,43 @@ export default function useFetch({
     loading: false,
     error: null,
   });
-  const refetch = useCallback(async () => {
-    setState((prev) => ({ ...prev, error: null, loading: true }));
-    try {
-      const response = await asyncFunction();
-      setState((prev) => ({ ...prev, loading: false, data: response }));
-    } catch (error) {
-      setState({ data: null, loading: false, error });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [...deps]);
+
+  const asyncFnRef = useRef(asyncFunction);
+  useEffect(() => {
+    asyncFnRef.current = asyncFunction;
+  }, [asyncFunction]);
+
+  const refetchRef = useRef(null);
+  if (refetchRef.current === null) {
+    refetchRef.current = async () => {
+      setState((prev) => ({ ...prev, error: null, loading: true }));
+      try {
+        const response = await asyncFnRef.current();
+        setState((prev) => ({ ...prev, loading: false, data: response }));
+      } catch (error) {
+        setState({ data: null, loading: false, error });
+      }
+    };
+  }
 
   useEffect(() => {
-    if (immediate) refetch();
-  }, [immediate, refetch]);
+    if (immediate) refetchRef.current();
+  }, [immediate, ...deps]);
 
-  return { ...state, refetch };
+  return { ...state, refetch: refetchRef };
 }
 export function useQuery({ queryFn, deps = [] }) {
-  const { loading, error, data, refetch } = useFetch({
+  return useFetch({
     asyncFunction: queryFn,
     immediate: true,
     deps,
   });
-  return { loading, error, data, refetch };
 }
 
 export function useMutation({ mutationFn, deps = [] }) {
-  const {
-    loading,
-    error,
-    data,
-    refetch: mutate,
-  } = useFetch({
+  return useFetch({
     asyncFunction: mutationFn,
     immediate: false,
     deps,
   });
-  return { loading, error, data, mutate };
 }
